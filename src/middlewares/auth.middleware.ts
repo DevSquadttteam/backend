@@ -14,11 +14,9 @@ const auth = async (req: AuthRequest, res: Response, next: NextFunction) => {
       return res.status(401).json({ message: "No token, authorization denied" });
     }
 
-    console.log(`"${token}"`)
 
     const secret = process.env.JWT_SECRET!;
-
-    console.log(process.env.JWT_SECRET)
+    
     const decoded = jwt.verify(token, secret) as { id: string, role: string };
 
     const user = await User.findById(decoded.id);
